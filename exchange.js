@@ -1,29 +1,37 @@
-const amount = document.getElementById("amount");
-const currency = document.getElementById("currency");
-const convert = document.getElementById("convert");
-const result = document.getElementById("result");
+require("dotenv").config();
 
-const apiKey = "";
-const apiUrl = `https://api.api-ninjas.com/v1/convertcurrency?want=${toCurrency}&have=${fromCurrency}&amount=${amount}`;
+document.addEventListener("DOMContentLoaded", () => {
+  const amount = document.getElementById("amount");
+  const fromCurrency = document.getElementById("fromCurrency");
+  const toCurrency = document.getElementById("toCurrency");
+  const convertButton = document.querySelector("button[type='submit']");
+  const result = document.getElementById("result");
 
-convert.addEventListener("click", () => {
-  const amountTotal = amount.value;
-  const currencyTotal = currency.value;
-  const url = apiUrl + currencyTotal;
+  const apiKey = process.env.API_KEY;
 
-  fetch(url, {
-    headers: {
-      "X-API-KEY": apiKey,
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const rate = data.rate;
-      const result = amountTotal * rate;
-      result.innerHTML = `${amount} ${currency} = ${result.toFixed(2)} USD`;
+  convertButton.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const amountValue = parseFloat(amount.value);
+    const fromCurrencyValue = fromCurrency.value;
+    const toCurrencyValue = toCurrency.value;
+
+    const apiUrl = `https://api.api-ninjas.com/v1/convertcurrency?want=${toCurrencyValue}&have=${fromCurrencyValue}&amount=${amountValue}`;
+
+    fetch(apiUrl, {
+      headers: {
+        "X-API-KEY": apiKey,
+      },
     })
-    .catch((err) => {
-      console.log("request Failed: ", err);
-      result.innerHTML = "An error occurred please try again later";
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        result.innerHTML = `${data.old_amount} ${
+          data.old_currency
+        } = ${data.new_amount.toFixed(2)} ${data.new_currency}`;
+      })
+      .catch((err) => {
+        console.log("Request failed: ", err);
+        result.innerHTML = "An error occurred. Please try again later.";
+      });
+  });
 });
