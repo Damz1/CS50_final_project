@@ -1,0 +1,10 @@
+{
+  "name": "Exchange Rates",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "google extention for currency conversion",
+  "action": {
+    "default_icon": "money-icon.png",
+    "default_popup": "index.html"
+  }
+}
