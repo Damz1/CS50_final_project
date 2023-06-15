@@ -1,4 +1,4 @@
-require("dotenv").config();
+import { apiKey } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const amount = document.getElementById("amount");
@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const toCurrency = document.getElementById("toCurrency");
   const convertButton = document.querySelector("button[type='submit']");
   const result = document.getElementById("result");
-
-  const apiKey = process.env.API_KEY;
 
   convertButton.addEventListener("click", (event) => {
     event.preventDefault();
