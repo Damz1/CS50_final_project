@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fromCurrency = document.getElementById("fromCurrency");
   const toCurrency = document.getElementById("toCurrency");
   const convertButton = document.querySelector("button[type='submit']");
+  const switchButton = document.getElementById("switch");
   const result = document.getElementById("result");
 
   convertButton.addEventListener("click", (event) => {
@@ -31,5 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Request failed: ", err);
         result.innerHTML = "An error occurred. Please try again later.";
       });
+  });
+
+  switchButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const temp = fromCurrency.value;
+    fromCurrency.value = toCurrency.value;
+    toCurrency.value = temp;
   });
 });
