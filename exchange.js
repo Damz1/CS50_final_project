@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const convertButton = document.querySelector("button[type='submit']");
   const switchButton = document.getElementById("switch");
   const result = document.getElementById("result");
+  const addCoin = document.getElementById("addCoinForm");
 
   convertButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -39,5 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const temp = fromCurrency.value;
     fromCurrency.value = toCurrency.value;
     toCurrency.value = temp;
+  });
+
+  addCoin.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let coinSymbol = document.getElementById("coinSymbol").value;
+
+    let newOption = document.createElement("option");
+    newOption.value = coinSymbol;
+    newOption.text = coinSymbol;
+
+    let selectElement = document.getElementById("fromCurrency");
+    selectElement.appendChild(newOption);
   });
 });
