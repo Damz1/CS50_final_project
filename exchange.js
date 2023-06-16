@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const apiUrl = `https://api.api-ninjas.com/v1/convertcurrency?want=${toCurrencyValue}&have=${fromCurrencyValue}&amount=${amountValue}`;
 
+    result.innerHTML = "Loading...";
+
     fetch(apiUrl, {
       headers: {
         "X-API-KEY": apiKey,
@@ -40,17 +42,5 @@ document.addEventListener("DOMContentLoaded", () => {
     const temp = fromCurrency.value;
     fromCurrency.value = toCurrency.value;
     toCurrency.value = temp;
-  });
-
-  addCoin.addEventListener("submit", (event) => {
-    event.preventDefault();
-    let coinSymbol = document.getElementById("coinSymbol").value;
-
-    let newOption = document.createElement("option");
-    newOption.value = coinSymbol;
-    newOption.text = coinSymbol;
-
-    let selectElement = document.getElementById("fromCurrency");
-    selectElement.appendChild(newOption);
   });
 });
