@@ -43,4 +43,31 @@ document.addEventListener("DOMContentLoaded", () => {
     fromCurrency.value = toCurrency.value;
     toCurrency.value = temp;
   });
+
+  const currencyInput = document.getElementById("currency-input");
+  currencyInput.addEventListener("input", () => {
+    const enteredText = this.value.toUpperCase();
+    const suggestions = currencies.filter((currency) => {
+      return (
+        currency.symbol.startsWith(enteredText) ||
+        currency.name.toUpperCase().includes(enteredText)
+      );
+    });
+
+    // Clear the previous suggestions
+    while (currencyInput.nextElementSibling) {
+      currencyInput.nextElementSibling.remove();
+    }
+
+    // Add the new suggestions
+    suggestions.forEach((currency) => {
+      const option = document.createElement("div");
+      option.textContent = `${currency.symbol} - ${currency.name}`;
+      option.addEventListener("click", function () {
+        currencyInput.value = currency.symbol;
+        this.parentNode.remove();
+      });
+      currencyInput.parentNode.appendChild(option);
+    });
+  });
 });
